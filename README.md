@@ -22,13 +22,9 @@ These new Classes are visible and useable from the iTop web interface.
 * Load Balancer
 * LB Address
 
-### DBServer / DBCluster / Database Schema
+### Middleware / MiddlewareCluster
 
-DBServer and DBCluster comes from the original work.
-
-The DBCluster also has a new Software definition for use in the Software catalogue.
-
-The original extension renamed Database Schema to DB Instance but I have reverted this and kept the original definition from iTop.
+Based off of DBServer and DBCluster.
 
 #### Middleware
 
@@ -48,6 +44,14 @@ The Software entry can be used to describe what Cluster software is used but if 
 Cluster Type is used to define what type of cluster it is. It is a radio button choice.
 
 Based off of wortk by Roger Martensson
+
+### DBServer / DBCluster / Database Schema
+
+DBServer and DBCluster comes from the original work.
+
+The DBCluster also has a new Software definition for use in the Software catalogue.
+
+The original extension renamed Database Schema to DB Instance but I have reverted this and kept the original definition from iTop.
 
 #### DBServer
 
