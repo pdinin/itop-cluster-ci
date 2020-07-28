@@ -14,10 +14,48 @@
             <values>
               <value id="DBCluster" _delta="define">DBCluster</value>
               <value id="WebCluster" _delta="define">WebCluster</value>
+			  <value id="MiddlewareCluster" _delta="define">MiddlewareCluster</value>
               <value id="LoadBalancer" _delta="define">LoadBalancer</value>
             </values>
         </field>
     	</fields>
+    </class>
+    <class id="Middleware" _delta="must_exist">
+      <fields>
+        <field id="middlewarecluster_list" xsi:type="AttributeLinkedSetIndirect" _delta="define">
+          <linked_class>lnkMiddlewareClusterToSoftwareInstance</linked_class>
+          <ext_key_to_me>softwareinstance_id</ext_key_to_me>
+          <count_min>0</count_min>
+          <count_max>0</count_max>
+          <ext_key_to_remote>middlewarecluster_id</ext_key_to_remote>
+          <duplicates/>
+        </field>
+        <field id="middlewareinstance_list" xsi:type="AttributeLinkedSet" _delta="redefine">
+          <linked_class>MiddlewareInstance</linked_class>
+          <ext_key_to_me>softwareinstance_id</ext_key_to_me>
+          <edit_mode>in_place</edit_mode>
+          <count_min>0</count_min>
+          <count_max>0</count_max>
+        </field>
+      </fields>
+      <relations>
+        <relation id="impacts">
+          <neighbours>
+            <neighbour id="middlewarecluster" _delta="define">
+              <attribute>middlewarecluster_list</attribute>
+            </neighbour>
+          </neighbours>
+        </relation>
+      </relations>
+      <presentation>
+        <details>
+          <items>
+            <item id="middlewarecluster_list" _delta="define">
+              <rank>105</rank>
+            </item>
+          </items>
+        </details>
+      </presentation>
     </class>
     <class id="WebServer" _delta="must_exist">
       <fields>
@@ -830,7 +868,239 @@
         </list>
       </presentation>
     </class>
-    <class id="lnkDBClusterToSoftwareInstance" _delta="define">
+    <class id="MiddlewareCluster" _delta="define">
+      <parent>SoftwareInstance</parent>
+      <properties>
+        <category>bizmodel,searchable</category>
+        <abstract>false</abstract>
+        <key_type>autoincrement</key_type>
+        <db_table>middlewarecluster</db_table>
+        <db_key_field>id</db_key_field>
+        <db_final_class_field/>
+        <naming>
+          <format>%1$s</format>
+          <attributes>
+            <attribute id="name"/>
+          </attributes>
+        </naming>
+        <display_template/>
+        <icon>images/middlewarecluster.png</icon>
+        <reconciliation>
+          <attributes>
+            <attribute id="name"/>
+            <attribute id="org_id"/>
+            <attribute id="organization_name"/>
+          </attributes>
+        </reconciliation>
+      </properties>
+      <fields>
+        <field id="middlewarenode_list" xsi:type="AttributeLinkedSetIndirect">
+          <linked_class>lnkMiddlewareClusterToSoftwareInstance</linked_class>
+          <ext_key_to_me>middlewarecluster_id</ext_key_to_me>
+          <count_min>0</count_min>
+          <count_max>0</count_max>
+          <ext_key_to_remote>softwareinstance_id</ext_key_to_remote>
+          <duplicates/>
+        </field>
+        <field id="middlewareinstance_list" xsi:type="AttributeLinkedSet">
+          <linked_class>MiddlewareInstance</linked_class>
+          <ext_key_to_me>softwareinstance_id</ext_key_to_me>
+          <count_min>0</count_min>
+          <count_max>0</count_max>
+        </field>
+        <field id="cluster_type" xsi:type="AttributeEnum">
+          <values>
+            <value>Fail-over</value>
+            <value>Master/Slave</value>
+            <value>Active/Active</value>
+            <value>Active/Standby</value>
+          </values>
+          <sql>cluster_type</sql>
+          <default_value/>
+          <is_null_allowed>true</is_null_allowed>
+          <display_style>radio_vertical</display_style>
+        </field>
+      </fields>
+      <methods />
+      <relations>
+        <relation id="impacts" _delta="define">
+          <neighbours>
+            <neighbour id="middlewareinstance" _delta="define">
+              <attribute>middlewareinstance_list</attribute>
+            </neighbour>
+          </neighbours>
+        </relation>
+      </relations>
+      <presentation>
+        <details>
+          <items>
+            <item id="name">
+              <rank>10</rank>
+            </item>
+            <item id="org_id">
+              <rank>20</rank>
+            </item>
+            <item id="status">
+              <rank>30</rank>
+            </item>
+            <item id="business_criticity">
+              <rank>40</rank>
+            </item>
+            <item id="software_id" _delta="delete">
+              <rank>60</rank>
+            </item>
+            <item id="softwarelicence_id" _delta="delete">
+              <rank>70</rank>
+            </item>
+            <item id="cluster_type" _delta="delete">
+              <rank>75</rank>
+            </item>
+            <item id="path">
+              <rank>80</rank>
+            </item>
+            <item id="move2production">
+              <rank>90</rank>
+            </item>
+            <item id="description">
+              <rank>100</rank>
+            </item>
+            <item id="contacts_list">
+              <rank>110</rank>
+            </item>
+            <item id="documents_list">
+              <rank>120</rank>
+            </item>
+            <item id="tickets_list">
+              <rank>130</rank>
+            </item>
+            <item id="applicationsolution_list">
+              <rank>140</rank>
+            </item>
+            <item id="middlewarenode_list">
+              <rank>145</rank>
+            </item>
+            <item id="middlewareinstance_list">
+              <rank>150</rank>
+            </item>
+            <item id="providercontracts_list">
+              <rank>160</rank>
+            </item>
+            <item id="services_list">
+              <rank>170</rank>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="name">
+              <rank>10</rank>
+            </item>
+            <item id="org_id">
+              <rank>20</rank>
+            </item>
+            <item id="business_criticity">
+              <rank>30</rank>
+            </item>
+            <item id="move2production">
+              <rank>40</rank>
+            </item>
+          </items>
+        </search>
+        <list>
+          <items>
+            <item id="org_id">
+              <rank>10</rank>
+            </item>
+            <item id="business_criticity">
+              <rank>20</rank>
+            </item>
+          </items>
+        </list>
+      </presentation>
+    </class>
+    <class id="lnkMiddlewareClusterToSoftwareInstance" _delta="define">
+      <parent>cmdbAbstractObject</parent>
+      <properties>
+        <is_link>1</is_link>
+        <category>bizmodel</category>
+        <abstract>false</abstract>
+        <key_type>autoincrement</key_type>
+        <db_table>lnkmiddlewareclustertosoftwareinstance</db_table>
+        <db_key_field>id</db_key_field>
+        <db_final_class_field/>
+        <naming>
+          <format>%1$s %2$s</format>
+          <attributes>
+            <attribute id="middlewarecluster_id"/>
+            <attribute id="softwareinstance_id"/>
+          </attributes>
+        </naming>
+        <display_template/>
+        <icon/>
+        <reconciliation>
+          <attributes>
+            <attribute id="middlewarecluster_id"/>
+            <attribute id="softwareinstance_id"/>
+          </attributes>
+        </reconciliation>
+      </properties>
+      <fields>
+        <field id="middlewarecluster_id" xsi:type="AttributeExternalKey">
+          <sql>middlewarecluster_id</sql>
+          <target_class>MiddlewareCluster</target_class>
+          <is_null_allowed>false</is_null_allowed>
+          <on_target_delete>DEL_AUTO</on_target_delete>
+        </field>
+        <field id="middlewarecluster_name" xsi:type="AttributeExternalField">
+          <extkey_attcode>middlewarecluster_id</extkey_attcode>
+          <target_attcode>name</target_attcode>
+        </field>
+        <field id="softwareinstance_id" xsi:type="AttributeExternalKey">
+          <sql>softwareinstance_id</sql>
+          <target_class>Middleware</target_class>
+          <is_null_allowed>false</is_null_allowed>
+          <on_target_delete>DEL_AUTO</on_target_delete>
+        </field>
+        <field id="softwareinstance_name" xsi:type="AttributeExternalField">
+          <extkey_attcode>softwareinstance_id</extkey_attcode>
+          <target_attcode>name</target_attcode>
+        </field>
+      </fields>
+      <methods/>
+      <presentation>
+        <details>
+          <items>
+            <item id="middlewarecluster_id">
+              <rank>10</rank>
+            </item>
+            <item id="softwareinstance_id">
+              <rank>20</rank>
+            </item>
+          </items>
+        </details>
+        <search>
+          <items>
+            <item id="middlewarecluster_id">
+              <rank>10</rank>
+            </item>
+            <item id="softwareinstance_id">
+              <rank>20</rank>
+            </item>
+          </items>
+        </search>
+        <list>
+          <items>
+            <item id="middlewarecluster_id">
+              <rank>10</rank>
+            </item>
+            <item id="softwareinstance_id">
+              <rank>20</rank>
+            </item>
+          </items>
+        </list>
+      </presentation>
+    </class> 
+	<class id="lnkDBClusterToSoftwareInstance" _delta="define">
       <parent>cmdbAbstractObject</parent>
       <properties>
         <is_link>1</is_link>
@@ -1393,6 +1663,10 @@
               <dashlet id="112" xsi:type="DashletBadge" _delta="define">
                 <rank>112</rank>
                 <class>WebCluster</class>
+              </dashlet>
+			  <dashlet id="113" xsi:type="DashletBadge" _delta="define">
+                <rank>113</rank>
+                <class>MiddlewareCluster</class>
               </dashlet>
             </dashlets>
           </cell>
