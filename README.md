@@ -11,8 +11,10 @@ This extension implements some new cluster related classes and extends some of t
 
 These new Classes are visible and useable from the iTop web interface.
 
+* MiddlewareCluster (new)
 * DBCluster (new)
 * WebCluster (new)
+* Middleware (extended)
 * DBServer (extended)
 * WebServer (extended)
 * Database Schema (extended)
@@ -27,6 +29,25 @@ DBServer and DBCluster comes from the original work.
 The DBCluster also has a new Software definition for use in the Software catalogue.
 
 The original extension renamed Database Schema to DB Instance but I have reverted this and kept the original definition from iTop.
+
+#### Middleware
+
+Middleware is the extended with a new Tab called Middleware Clusters where clusters the Middleware is part of is listed.
+
+Based off of wortk by Roger Martensson
+
+#### MiddlewareCluster
+
+MiddlewareCluster is a new class that is supposed to define an installed cluster. In iTop this object is defined to connect 1 or more Middleware as part of a cluster.
+
+The MiddlewareCluster is based on the SoftwareInstance interface like the Middleware. Although with some extensions.
+
+The is a Tab where Middleware are listed as being part of the MiddlewareCluster object.
+The Software entry can be used to describe what Cluster software is used but if needed.
+
+Cluster Type is used to define what type of cluster it is. It is a radio button choice.
+
+Based off of wortk by Roger Martensson
 
 #### DBServer
 
